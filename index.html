@@ -3,231 +3,122 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Memento Mori Life Expectancy</title>
+<title>Memento Mori Life Expectancy Calculator</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap');
-
   body {
-    margin: 0; padding: 0; min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    font-family: 'Open Sans', sans-serif;
-    background: #fafafa;
-    color: #222;
-    padding: 1.5rem;
-    text-align: center;
+    background: #1e1e1e;
+    color: #ddd;
+    font-family: "Georgia", serif;
+    margin: 0; padding: 0;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh;
+  }
+  #app {
+    background: #2c2c2c;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 0 10px #000a;
   }
   h1 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #2c3e50;
+    font-weight: 400;
+    font-size: 2.5rem;
+    margin-bottom: 0.2rem;
   }
-  form {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.07);
-    max-width: 400px;
-    width: 100%;
+  p.intro {
+    font-style: italic;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    color: #bbb;
   }
   label {
     display: block;
-    margin: 1rem 0 0.3rem;
+    margin-top: 1rem;
     font-weight: 600;
-    color: #34495e;
   }
-  input[type=number], select {
+  input, select {
+    margin-top: 0.3rem;
     width: 100%;
-    padding: 0.6rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: none;
     font-size: 1rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    transition: border-color 0.3s ease;
-  }
-  input[type=number]:focus, select:focus {
-    outline: none;
-    border-color: #2980b9;
+    background: #444;
+    color: #eee;
   }
   button {
-    margin-top: 1.5rem;
-    padding: 0.8rem 1rem;
-    width: 100%;
+    margin-top: 2rem;
+    background: #555;
+    color: #eee;
+    padding: 0.75rem 2rem;
     font-size: 1.1rem;
-    font-weight: 700;
     border: none;
-    border-radius: 8px;
-    background-color: #2980b9;
-    color: white;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
   }
   button:hover {
-    background-color: #1c5980;
+    background: #777;
   }
-  #result {
+  .section {
+    margin-bottom: 1.5rem;
+  }
+  .disclaimer {
     margin-top: 2rem;
-    background: #e8f0fe;
-    border-radius: 12px;
-    padding: 1.5rem;
-    font-size: 1.2rem;
-    color: #2c3e50;
-    box-shadow: 0 6px 18px rgba(41, 128, 185, 0.2);
-    display: none;
+    font-size: 0.8rem;
+    color: #888;
   }
-  #resetBtn {
-    margin-top: 1rem;
-    background: #bdc3c7;
-    color: #2c3e50;
-  }
-  #resetBtn:hover {
-    background: #95a5a6;
-  }
-  footer {
-    margin-top: 3rem;
-    font-size: 0.85rem;
-    color: #7f8c8d;
-  }
-  @media (max-width: 440px) {
-    form {
-      padding: 1.5rem;
-    }
+  .tooltip {
+    font-size: 0.8rem;
+    color: #999;
+    cursor: help;
   }
 </style>
 </head>
 <body>
-
-<h1>Estimate Your Time<br/><small style="font-weight:400; font-size:1rem; color:#7f8c8d;">Memento Mori</small></h1>
-
-<form id="lifeForm" autocomplete="off" novalidate>
-  <label for="age">Your Age</label>
-  <input type="number" id="age" name="age" min="0" max="120" required placeholder="e.g., 35" />
-  
-  <label for="gender">Gender</label>
-  <select id="gender" name="gender" required>
-    <option value="" disabled selected>Select your gender</option>
-    <option value="female">Female</option>
-    <option value="male">Male</option>
-    <option value="other">Other/Prefer not to say</option>
-  </select>
-
-  <label for="smoking">Do you smoke?</label>
-  <select id="smoking" name="smoking" required>
-    <option value="" disabled selected>Select an option</option>
-    <option value="no">No</option>
-    <option value="yes">Yes</option>
-  </select>
-
-  <label for="exercise">Exercise frequency</label>
-  <select id="exercise" name="exercise" required>
-    <option value="" disabled selected>Select frequency</option>
-    <option value="none">None</option>
-    <option value="low">Low (1-2 times/week)</option>
-    <option value="medium">Medium (3-4 times/week)</option>
-    <option value="high">High (5+ times/week)</option>
-  </select>
-
-  <label for="familyHistory">Family history of major diseases?</label>
-  <select id="familyHistory" name="familyHistory" required>
-    <option value="" disabled selected>Select an option</option>
-    <option value="no">No</option>
-    <option value="yes">Yes</option>
-  </select>
-
-  <button type="submit">Calculate</button>
-</form>
-
-<div id="result"></div>
-<button id="resetBtn" style="display:none;">Reset</button>
-
-<footer>
-  <small>Inspired by the Memento Mori Clock project • <a href="#" target="_blank" rel="noopener noreferrer">Learn more</a></small>
-</footer>
+  <div id="app">
+    <h1>Memento Mori</h1>
+    <p class="intro">
+      This calculator estimates your life expectancy based on scientific research and epidemiological data.
+      It is not a prediction but a thoughtful reflection on factors that influence longevity.<br />
+      Please answer honestly and thoughtfully.
+    </p>
+    <form id="lifeForm">
+      <div class="section">
+        <label for="dob">Date of Birth <span class="tooltip" title="Used to calculate your current age">[?]</span></label>
+        <input type="date" id="dob" name="dob" required max="" />
+      </div>
+      <div class="section">
+        <label for="gender">Gender <span class="tooltip" title="Biological sex influences life expectancy">[?]</span></label>
+        <select id="gender" name="gender" required>
+          <option value="" disabled selected>Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other / Prefer not to say</option>
+        </select>
+      </div>
+      <button type="submit">Next</button>
+      <p class="disclaimer">
+        Note: The estimate includes an uncertainty margin ±5-10 years. It is a guide for reflection, not a certainty.
+      </p>
+    </form>
+  </div>
 
 <script>
-  const form = document.getElementById('lifeForm');
-  const resultDiv = document.getElementById('result');
-  const resetBtn = document.getElementById('resetBtn');
+  // Limit DOB max date to today
+  const dobInput = document.getElementById("dob");
+  dobInput.max = new Date().toISOString().split("T")[0];
 
-  function calculateLifeExpectancy(data) {
-    // Base life expectancy
-    let baseLifeExpectancy;
-    switch(data.gender) {
-      case 'female': baseLifeExpectancy = 80; break;
-      case 'male': baseLifeExpectancy = 75; break;
-      default: baseLifeExpectancy = 77;
-    }
-
-    // Adjust for smoking (-7 years if yes)
-    if(data.smoking === 'yes') baseLifeExpectancy -= 7;
-
-    // Adjust for exercise (+3, +1, -2, 0 for high, medium, none, low)
-    switch(data.exercise) {
-      case 'high': baseLifeExpectancy += 3; break;
-      case 'medium': baseLifeExpectancy += 1; break;
-      case 'low': baseLifeExpectancy -= 2; break;
-      case 'none': baseLifeExpectancy -= 4; break;
-    }
-
-    // Adjust for family history (-5 years if yes)
-    if(data.familyHistory === 'yes') baseLifeExpectancy -= 5;
-
-    // Subtract current age
-    let remainingYears = baseLifeExpectancy - data.age;
-    if(remainingYears < 0) remainingYears = 0;
-
-    // Convert to days
-    let remainingDays = Math.floor(remainingYears * 365);
-
-    return { remainingYears, remainingDays };
-  }
-
-  function formatResult(years, days) {
-    return `
-      <p><strong>Your estimated remaining time:</strong></p>
-      <p style="font-size:1.8rem; margin:0.3rem 0;">${years.toFixed(1)} years<br/>(${days.toLocaleString()} days)</p>
-      <p style="font-style: italic; margin-top: 1rem; color:#555;">
-        "Remember you must die, so live wisely." – Memento Mori
-      </p>
-    `;
-  }
-
-  form.addEventListener('submit', (e) => {
+  const form = document.getElementById("lifeForm");
+  form.addEventListener("submit", e => {
     e.preventDefault();
-
-    // Validate inputs
-    const age = parseInt(form.age.value, 10);
-    const gender = form.gender.value;
-    const smoking = form.smoking.value;
-    const exercise = form.exercise.value;
-    const familyHistory = form.familyHistory.value;
-
-    if (isNaN(age) || age < 0 || age > 120) {
-      alert('Please enter a valid age between 0 and 120.');
-      return;
-    }
-    if (!gender || !smoking || !exercise || !familyHistory) {
-      alert('Please fill out all fields.');
-      return;
-    }
-
-    const data = { age, gender, smoking, exercise, familyHistory };
-    const { remainingYears, remainingDays } = calculateLifeExpectancy(data);
-
-    resultDiv.innerHTML = formatResult(remainingYears, remainingDays);
-    resultDiv.style.display = 'block';
-
-    form.style.display = 'none';
-    resetBtn.style.display = 'block';
-  });
-
-  resetBtn.addEventListener('click', () => {
-    form.reset();
-    form.style.display = 'block';
-    resultDiv.style.display = 'none';
-    resetBtn.style.display = 'none';
+    // For demo, just alert the inputs
+    alert("Next steps coming soon! Form values:\n" +
+      "DOB: " + dobInput.value + "\n" +
+      "Gender: " + form.gender.value);
+    // Here we will build navigation, data storage, scoring...
   });
 </script>
-
 </body>
 </html>
